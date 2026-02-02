@@ -40,7 +40,7 @@ class PhotoAdmin(admin.ModelAdmin):
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'typename', 'rating', 'role')
+    list_display = ('id', 'name', 'master', 'typename', 'rating', 'role')
     list_filter = ('typename', 'rating')
     search_fields = ('name', 'text')
     list_select_related = ('typename',)

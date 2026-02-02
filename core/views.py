@@ -97,36 +97,37 @@ class MastersHomeView(View):
 
 
 
+
 class MasterDetailViews(View):
     def get(self, request, id):
         master = get_object_or_404(Master, id=id)
         photos = Photo.objects.filter(master=master)
+        feedback = Feedback.objects.filter(master=master)
         form = BookingForm()
 
         return render(request, 'masterdeatil.html', {
             'master': master,
             'photos': photos,
-            'feedbacks': Feedback.objects.all(),
+            'feedbacks': feedback,
             'form': form,
         })
 
     def post(self, request, id):
         master = get_object_or_404(Master, id=id)
         photos = Photo.objects.filter(master=master)
+        feedback = Feedback.objects.filter(master=master)
         form = BookingForm(request.POST)
 
         if form.is_valid():
             form.save()
             return redirect(request.path)
 
-
         return render(request, 'masterdeatil.html', {
             'master': master,
             'photos': photos,
-            'feedbacks': Feedback.objects.all(),
+            'feedbacks': feedback,
             'form': form,
         })
-
 
 
 class ServicesByTypeView(View):

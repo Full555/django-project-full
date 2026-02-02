@@ -44,6 +44,7 @@ class Photo(models.Model):
 
 
 class Feedback(models.Model):
+    master = models.ForeignKey(Master, on_delete=models.CASCADE)
     typename = models.ForeignKey(ServiceType, on_delete=models.CASCADE)
     text = models.TextField(verbose_name='Текст отзыва')
     rating = models.PositiveSmallIntegerField(verbose_name='Звёзды')
