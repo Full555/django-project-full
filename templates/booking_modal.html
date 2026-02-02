@@ -1,0 +1,33 @@
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">×</span>
+        <h2>Запись</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.name }}
+            {{ form.phone }}
+            {{ form.service }}
+            {{ form.master }}
+            {{ form.date }}
+            {{ form.time }}
+            {{ form.comment }}
+            <button type="submit" class="btn-primary">Забронировать</button>
+        </form>
+        <button type="button" class="btn-secondary" onclick="closeModal()">Отмена</button>
+    </div>
+</div>
+
+<script>
+function openModal() {
+    document.getElementById('bookingModal').style.display = 'flex';
+}
+function closeModal() {
+    document.getElementById('bookingModal').style.display = 'none';
+}
+window.onclick = function(event) {
+    const modal = document.getElementById('bookingModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>

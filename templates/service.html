@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% for type in service_types %}
+<section class="services">
+
+    <h2 class="services-title">
+        {{ type.name }}
+    </h2>
+
+    <div class="services-grid">
+        {% for service in type.services.all %}
+
+            <div class="service-card">
+
+                <div class="service-image">
+                    <img src="{{ service.photo.url }}" alt="{{ service.name }}">
+                </div>
+
+                <div class="service-content">
+                    <h3 class="service-name">{{ service.name }}</h3>
+                    <p class="service-price">От {{ service.money }} ₽</p>
+
+                    <div class="service-actions">
+                        <a href="{% url 'master-home' %}" class="btn-outline">
+                            Выбрать мастера
+                        </a>
+
+                          {% if user.is_authenticated %}
+                              <button type="button" onclick="openModal()">Записаться</button>
+                          {% else %}
+                              <button type="button" onclick="alert('Чтобы забронировать, нужно пройти регистрацию и войти в систему')">
+                                          Записаться
+                              </button>
+                          {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+
+        {% endfor %}
+    </div>
+
+</section>
+{% endfor %}
+
+{% endblock content %}

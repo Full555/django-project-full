@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="services-title">{{ service_type.name }}</h2>
+
+
+<section class="services">
+
+
+    <div class="services-grid">
+        {% for service in services %}
+            <div class="service-image">
+                <img src="{{ service.photo.url }}" alt="{{ service.name }}">
+            </div>
+            <div class="service-card">
+                <div class="service-content">
+                    <h3 class="service-name">{{ service.name }}</h3>
+                    <p class="service-price">От {{ service.money }} ₽</p>
+
+                    <div class="service-actions">
+                        <a href="{% url 'master-home' %}" class="btn-outline">Выбрать мастера</a>
+
+                           {% if user.is_authenticated %}
+                              <button type="button" onclick="openModal()">Записаться</button>
+                           {% else %}
+                              <button type="button" onclick="alert('Чтобы забронировать, нужно пройти регистрацию и войти в систему')">
+                                          Записаться
+                              </button>
+                          {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<section class="services">
+
+
+    <div class="services-grid">
+        {% for service in servicesone %}
+            <div class="service-image">
+                <img src="{{ service.photo.url }}" alt="{{ service.name }}">
+            </div>
+            <div class="service-card">
+                <h3 class="service-name">{{ service.name }}</h3>
+                <p class="service-price">От {{ service.money }} рублей</p>
+
+                <div class="service-actions">
+                    <a href="{% url 'master-home' %}" class="btn-outline">Выбрать мастера</a>
+                    <button type="button" onclick="openModal()">Записаться</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="services">
+
+
+    <div class="services-grid">
+        {% for service in servicestwo %}
+            <div class="service-image">
+                <img src="{{ service.photo.url }}" alt="{{ service.name }}">
+            </div>
+            <div class="service-card">
+                <h3 class="service-name">{{ service.name }}</h3>
+                <p class="service-price">От {{ service.money }} рублей</p>
+
+                <div class="service-actions">
+                     <a href="{% url 'master-home' %}" class="btn-outline">Выбрать мастера</a>
+                    <button type="button" onclick="openModal()">Записаться</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+
+  {% include "components/navbar.html"%}
+
+  {% block content %}
+
+  {% endblock content%}
+        {% include 'booking_modal.html' with form=form %}
+        {% include "components/footer.html" %}
+</body>
+</html>
+

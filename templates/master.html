@@ -1,0 +1,70 @@
+{% extends "base.html"%}
+
+{% load static %}
+
+{% block content %}
+
+<section class="masters-section">
+    <h2 class="masters-title">Наши мастера</h2>
+
+
+  <div class="filters">
+    {% for type in types %}
+        <a href="?typename={{ type.id }}"
+           class="filter-btn {% if active_type == type.id|stringformat:'s' %}active{% endif %}">
+            {{ type.name }}
+        </a>
+    {% endfor %}
+  </div>
+
+
+
+    <div class="masters-grid">
+        {% for master in masters %}
+            <div class="master-card">
+                <img src="{{ master.image.url }}" alt="{{ master.name }}">
+
+                <h3>{{ master.name }}</h3>
+                <span class="role">{{ master.typename.name }}</span>
+
+                <p class="exp">Опыт работы – {{ master.confirmed_experience|default:"9 лет" }}</p>
+
+                <p class="info">
+                    {{ master.information }}
+                </p>
+
+                <a href="{% url 'master' master.id %}" class="more">Подробнее</a>
+
+
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<section class="masters-section">
+    <h2 class="masters-title">Фотогалерея работ</h2>
+      <div class="filters">
+    {% for typ in type %}
+        <a href="?typename={{ typ.id }}"
+           class="filter-btn {% if active_type == typ.id|stringformat:'s' %}active{% endif %}">
+            {{ typ.name }}
+        </a>
+    {% endfor %}
+  </div>
+
+    <div class="masters-grid">
+        {% for photo in photos %}
+            <div class="master-card">
+                <img src="{{ photo.image.url }}" alt="{{ master.name }}">
+
+                <h3>{{ photo.name }}</h3>
+
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+
+{% endblock content %}

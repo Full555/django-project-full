@@ -1,0 +1,63 @@
+{% extends "base.html"%}
+
+{% load static %}
+
+{% block content %}
+  <div class="header-hero">
+    <img src="media/lop.jpg" alt="Команда Pink Lashes">
+    <button class="hero-btn hero-btn-left">‹</button>
+    <button class="hero-btn hero-btn-right">›</button>
+  </div>
+
+
+
+<section>
+    <div>
+        <p>Since 2012 in a charming Hawaii Town, Serene Beauty emerged as a haven for beauty and tranquility. Founded by Sarah, a passionate hairstylist, the salon's simple yet profound vision was to enhance natural beauty while providing a peaceful escape.
+
+With time, Serene Beauty's dedicated team grew, offering a range of services from esthetics to makeup. It became a beloved part of the community, known for its serene ambiance and commitment to giving back through charity events.</p>
+    </div>
+    <div>
+        <img src="media/ppp.jpg" alt="">
+
+
+    </div>
+</section>
+
+
+<section class="masters-section">
+    <h2 class="masters-title">Наши мастера</h2>
+
+
+  <div class="filters">
+    {% for type in types %}
+        <a href="?typename={{ type.id }}"
+           class="filter-btn {% if active_type == type.id|stringformat:'s' %}active{% endif %}">
+            {{ type.name }}
+        </a>
+    {% endfor %}
+  </div>
+
+
+
+    <div class="masters-grid">
+        {% for master in masters %}
+            <div class="master-card">
+                <img src="{{ master.image.url }}" alt="{{ master.name }}">
+
+                <h3>{{ master.name }}</h3>
+                <span class="role">{{ master.typename.name }}</span>
+
+                <p class="exp">Опыт работы – {{ master.confirmed_experience|default:"9 лет" }}</p>
+
+                <p class="info">
+                    {{ master.information }}
+                </p>
+
+                <a href="#" class="more">Подробнее</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock content %}

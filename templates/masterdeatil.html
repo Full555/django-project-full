@@ -1,0 +1,81 @@
+{% extends "base.html"%}
+
+{% load static %}
+
+{% block content %}
+
+<section class="masters-section">
+    <div class="masters-grid">
+        <div class="master-card">
+            <img src="{{ master.image.url }}">
+            <h3>{{ master.name }}</h3>
+            <span class="role">{{ master.typename.name }}</span>
+            <p>{{ master.experience }}</p>
+            <p>{{ master.information }}</p>
+               {% if user.is_authenticated %}
+                   <button class="more" type="button" onclick="openModal()">Записаться</button>
+               {% else %}
+                   <button type="button" onclick="alert('Чтобы забронировать, нужно пройти регистрацию и войти в систему')">
+                                          Записаться
+                   </button>
+               {% endif %}
+        </div>
+
+    </div>
+</section>
+
+<section class="masters-section">
+    <h2 class="masters-title">Фотогалерея работ</h2>
+
+    <div class="masters-grid">
+        {% for photo in photos %}
+            <div class="master-card">
+                <img src="{{ photo.image.url }}">
+                <h3>{{ photo.name }}</h3>
+            </div>
+        {% empty %}
+            <p>У этого мастера пока нет работ</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+<section class="feedbacks">
+    <h2 class="feedbacks-title">Отзывы клиентов</h2>
+
+    <div class="feedbacks-slider">
+        {% for feedback in feedbacks %}
+            <div class="feedback-card">
+
+                <div class="quote">“</div>
+
+                <p class="feedback-text">
+                    {{ feedback.text }}
+                </p>
+
+                <div class="stars">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= feedback.rating %}
+                            <span class="star filled">★</span>
+                        {% else %}
+                            <span class="star">★</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="feedback-author">
+                    <img src="{{ feedback.avatar.url }}" alt="{{ feedback.name }}">
+                    <div>
+                        <p class="name">{{ feedback.name }}</p>
+                        <span class="role">{{ feedback.role }}</span>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+{% endblock content %}
