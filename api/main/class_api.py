@@ -1,20 +1,24 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.permissions import AllowAny
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from .paginations import StandardResultsSetPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from core.models import Booking, Master, Services, Feedback
-from .serializers import BookingSerializer, MasterSerializer, ServiceSerializer, FeedbackSerializer
-from .filters import BookingFilter, MasterFilter, ServicesFilter
+from .serializers import BookingSerializer, MasterSerializer, ServiceSerializer, FeedbackSerializer, BookingCreateSerializer
+from .filters import  MasterFilter, ServicesFilter
+from .permissions import BookingPermission
 
-
-class BookingViewSet(ReadOnlyModelViewSet):
+class BookingViewSet(ModelViewSet):
     queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
     pagination_class = StandardResultsSetPagination
-    permission_classes = (AllowAny,)
-    filter_backends = (DjangoFilterBackend,)
-    filterset_class = BookingFilter
+    permission_classes = [BookingPermission]
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+          return BookingSerializer
+        elif self.action == 'create':
+            return BookingCreateSerializer
+        return BookingSerializer
 
 
 class MasterViewSet(ReadOnlyModelViewSet):

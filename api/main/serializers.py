@@ -3,14 +3,16 @@ from core.models import Booking, Master, Services, Feedback
 
 
 class BookingSerializer(serializers.ModelSerializer):
-    service = serializers.CharField(source='service.name', read_only=True)
-    master = serializers.CharField(source='master.name', read_only=True)
+
 
     class Meta:
         model = Booking
         fields = '__all__'
 
-
+class BookingCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = '__all__'
 
 class MasterSerializer(serializers.ModelSerializer):
 
